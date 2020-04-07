@@ -57,7 +57,7 @@ public class UserController {
 
 	// get user by id
 	@GetMapping("/users/{id}")
-	public Optional<User> getUserById(@PathVariable("id") @Min(1)Long id) {
+	public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
 
 		try {
 			return userService.getUserById(id);
