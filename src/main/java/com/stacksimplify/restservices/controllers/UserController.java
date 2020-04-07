@@ -3,10 +3,14 @@ package com.stacksimplify.restservices.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +28,7 @@ import com.stacksimplify.restservices.services.UserService;
 
 //Controller
 @RestController
+@Validated
 public class UserController {
 
 	@Autowired
@@ -37,7 +42,7 @@ public class UserController {
 
 	// Create User Method
 	@PostMapping("/users")
-	public ResponseEntity<Void> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+	public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
 
 		try {
 
@@ -52,7 +57,7 @@ public class UserController {
 
 	// get user by id
 	@GetMapping("/users/{id}")
-	public Optional<User> getUserById(@PathVariable("id") Long id) {
+	public Optional<User> getUserById(@PathVariable("id") @Min(1)Long id) {
 
 		try {
 			return userService.getUserById(id);
@@ -82,8 +87,13 @@ public class UserController {
 
 	// getUserByUsername
 	@GetMapping("users/byusername/{username}")
-	public User getUserByUsername(@PathVariable("username") String username) {
-		return userService.getUserByUsername(username);
+	public User getUserByUsername(@PathVariable("username") String username) throws UserNotFoundException {
+
+		User user = userService.getUserByUsername(username);
+		if (user == null)
+			throw new UserNotFoundException("Username " + username + "not found in User Repository");
+		return user;
+		// return userService.getUserByUsername(username);
 	}
 
 }
