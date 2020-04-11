@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -29,19 +30,20 @@ import com.stacksimplify.restservices.services.UserService;
 //Controller
 @RestController
 @Validated
+@RequestMapping(value = "/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/users")
+	@GetMapping //("/users")
 	public List<User> getAllUsers() {
 
 		return userService.getAllUsers();
 	}
 
 	// Create User Method
-	@PostMapping("/users")
+	@PostMapping //("/users")
 	public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
 
 		try {
@@ -56,7 +58,7 @@ public class UserController {
 	}
 
 	// get user by id
-	@GetMapping("/users/{id}")
+	@GetMapping("/{id}")
 	public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
 
 		try {
@@ -70,7 +72,7 @@ public class UserController {
 	}
 
 	// update user by id
-	@PutMapping("/users/{id}")
+	@PutMapping("/{id}")
 	public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) {
 		try {
 			return userService.updateUserById(id, user);
@@ -80,13 +82,13 @@ public class UserController {
 	}
 
 	// delete user by id
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable("id") Long id) {
 		userService.deleteUserById(id);
 	}
 
 	// getUserByUsername
-	@GetMapping("users/byusername/{username}")
+	@GetMapping("byusername/{username}")
 	public User getUserByUsername(@PathVariable("username") String username) throws UserNotFoundException {
 
 		User user = userService.getUserByUsername(username);
