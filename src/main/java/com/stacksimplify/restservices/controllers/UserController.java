@@ -32,18 +32,20 @@ import com.stacksimplify.restservices.services.UserService;
 @Validated
 @RequestMapping(value = "/users")
 public class UserController {
-
+	
+	//Autowired the UserService
 	@Autowired
 	private UserService userService;
 
-	@GetMapping //("/users")
+	// getAllUser Method
+	@GetMapping // ("/users")
 	public List<User> getAllUsers() {
 
 		return userService.getAllUsers();
 	}
 
 	// Create User Method
-	@PostMapping //("/users")
+	@PostMapping // ("/users")
 	public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder builder) {
 
 		try {
