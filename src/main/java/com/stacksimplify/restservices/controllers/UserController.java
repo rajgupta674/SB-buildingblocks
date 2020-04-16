@@ -30,7 +30,7 @@ import com.stacksimplify.restservices.services.UserService;
 //Controller
 @RestController
 @Validated
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/users") 
 public class UserController {
 	
 	//Autowired the UserService
