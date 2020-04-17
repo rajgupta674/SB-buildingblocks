@@ -27,10 +27,7 @@ import com.stacksimplify.restservices.exceptions.UserExistsException;
 import com.stacksimplify.restservices.exceptions.UserNotFoundException;
 import com.stacksimplify.restservices.services.UserService;
 
-//Controller
-@RestController
-@Validated
-@RequestMapping(value = "/users") 
+  
 public class UserController {
 	
 	//Autowired the UserService
