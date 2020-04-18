@@ -1,3 +1,4 @@
+/*
 package com.stacksimplify.restservices.controllers;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import com.stacksimplify.restservices.repositories.UserRepository;
 @RestController
 @RequestMapping("/mapstruct/users")
 public class UserMapStructController {
-/*
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -34,26 +35,7 @@ public class UserMapStructController {
 		Optional<User> userOptional = userRepository.findById(id);
 		User user = userOptional.get();
 		return userMapper.userToUserMsDto(user);
-	}*/	
-	
-	
-	 @Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private UserMapper userMapper;
-	
-	@GetMapping
-	public List<UserMsDto> getAllUserDtos() {
-		return userMapper.usersToUserDtos(userRepository.findAll());
-	}
-	
-	@GetMapping("/{id}")
-	public UserMsDto getUserById(@PathVariable Long id) {
-		Optional<User> userOptional = userRepository.findById(id);
-		User user = userOptional.get();
-		return userMapper.userToUserMsDto(user);
-	  
-	
 	}
 }
+*/
